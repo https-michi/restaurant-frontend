@@ -1,0 +1,103 @@
+<div class="table-responsive">
+  <table class="table table-bordered table-striped table-hover">
+    <thead class="table-dark">
+    <tr>
+      <th>Tipo de Mesa</th>
+      <th>Descripción</th>
+      <th>Hora de Reserva</th>
+      <th>Fecha de Reserva</th>
+      <th>Estado</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let reservation of reservations">
+      <td><strong>{{ reservation.tableType }}</strong></td>
+      <td>{{ reservation.description }}</td>
+      <td>{{ reservation.dateTime | date: 'h:mm a' : 'UTC' }}</td>
+      <td>{{ reservation.dateTime | date: 'fullDate' : 'UTC' }}</td>
+      <td>
+        <strong
+          [ngClass]="{
+                'text-success': reservation.reservationStatus === 'APPROVED',
+                'text-primary': reservation.reservationStatus === 'PENDING',
+                'text-danger': reservation.reservationStatus === 'REJECTED'
+              }">
+          {{ reservation.reservationStatus }}
+        </strong>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<style>
+  .table th, .table td {
+    text-align: center;
+    vertical-align: middle;
+  }
+  .table-hover tbody tr:hover {
+    background-color: #f1f1f1;
+  }
+  .table-dark {
+    background-color: #343a40;
+    color: white;
+  }
+  .table th {
+    font-size: 1.1rem;
+  }
+  .table td {
+    font-size: 1rem;
+  }
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--<div class="table-responsive">-->
+<!--  <table class="table table-bordered table-striped table-hover">-->
+<!--    <thead class="table-dark">-->
+<!--    <tr>-->
+<!--      <th>Table Type</th>-->
+<!--      <th>Description</th>-->
+<!--      <th>Reservation Time</th>-->
+<!--      <th>Reservation Date</th>-->
+<!--      <th>Status</th>-->
+<!--    </tr>-->
+<!--    </thead>-->
+<!--    <tbody>-->
+<!--    &lt;!&ndash; Cambié basicTable.data por reservations &ndash;&gt;-->
+<!--    <tr *ngFor="let reservation of reservations">-->
+<!--      <td><strong>{{ reservation.tableType }}</strong></td>-->
+<!--      <td>{{ reservation.description }}</td>-->
+<!--      &lt;!&ndash;      <td>{{ reservation.dateTime | date: 'h:mm a' }}</td>&ndash;&gt;-->
+<!--      &lt;!&ndash;      <td>{{ reservation.dateTime | date: 'fullDate' }}</td>&ndash;&gt;-->
+<!--      <td>{{ reservation.dateTime | date: 'h:mm a' : 'UTC' }}</td>-->
+<!--      <td>{{ reservation.dateTime | date: 'fullDate' : 'UTC' }}</td>-->
+
+<!--      <td>-->
+<!--        <strong-->
+<!--          [ngClass]="{-->
+<!--              'text-success': reservation.reservationStatus === 'APPROVED',-->
+<!--              'text-primary': reservation.reservationStatus === 'PENDING',-->
+<!--              'text-danger': reservation.reservationStatus === 'REJECTED'-->
+<!--            }">-->
+<!--          {{ reservation.reservationStatus }}-->
+<!--        </strong>-->
+<!--      </td>-->
+<!--    </tr>-->
+<!--    </tbody>-->
+<!--  </table>-->
+<!--</div>-->

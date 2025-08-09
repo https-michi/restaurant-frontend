@@ -1,0 +1,51 @@
+<div class="container mt-5">
+  <h2 class="text-center">Reservaciones</h2>
+
+  <div *ngIf="alertVisible" class="alert alert-{{ alertType }} text-center" role="alert">
+    {{ alertMessage }}
+  </div>
+
+  <div class="table-responsive mt-4">
+    <table class="table table-bordered table-striped table-hover">
+      <thead class="table-dark text-center">
+      <tr>
+        <th>Usuario</th>
+        <th>Tipo de Mesa</th>
+        <th>Descripción</th>
+        <th>Hora de Reserva</th>
+        <th>Fecha de Reserva</th>
+        <th>Estado</th>
+        <th>Acción</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let reservation of reservations">
+        <td><strong>{{ reservation.customerName }}</strong></td>
+        <td>{{ reservation.tableType }}</td>
+        <td>{{ reservation.description }}</td>
+        <td>{{ reservation.dateTime | date: 'h:mm a' : 'UTC' }}</td>
+        <td>{{ reservation.dateTime | date: 'fullDate' : 'UTC' }}</td>
+
+        <td>
+          <strong
+            [ngClass]="{
+                'text-success': reservation.reservationStatus === 'APPROVED',
+                'text-primary': reservation.reservationStatus === 'PENDING',
+                'text-danger': reservation.reservationStatus === 'REJECTED'
+              }">
+            {{ reservation.reservationStatus }}
+          </strong>
+        </td>
+        <td class="text-center">
+            <span *ngIf="reservation.reservationStatus === 'PENDING'">
+              <button class="btn btn-success btn-sm mx-1"
+                      (click)="changeReservationStatus(reservation.id, 'Aprobado')">Aprobar</button>
+              <button class="btn btn-danger btn-sm mx-1"
+                      (click)="changeReservationStatus(reservation.id, 'REJECTED')">Rechazar</button>
+            </span>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

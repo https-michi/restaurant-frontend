@@ -1,0 +1,58 @@
+<div class="container mt-5">
+  <h2>Actualizar Producto</h2>
+  <div *ngIf="alertVisible" class="alert alert-{{ alertType }}" role="alert">
+    {{ alertMessage }}
+  </div>
+  <form [formGroup]="validateForm">
+
+    <div class="mb-3">
+      <label for="name" class="form-label">Nombre del Producto</label>
+      <input type="text" id="name" formControlName="name" class="form-control"/>
+      <div *ngIf="validateForm.get('name')?.invalid && validateForm.get('name')?.touched" class="text-danger">
+        El nombre es obligatorio.
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="description" class="form-label">Descripción</label>
+      <textarea id="description" formControlName="description" class="form-control"></textarea>
+      <div *ngIf="validateForm.get('description')?.invalid && validateForm.get('description')?.touched"
+           class="text-danger">
+        La descripción es obligatoria.
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="price" class="form-label">Precio</label>
+      <input type="number" id="price" formControlName="price" class="form-control"/>
+      <div *ngIf="validateForm.get('price')?.invalid && validateForm.get('price')?.touched" class="text-danger">
+        El precio es obligatorio.
+      </div>
+    </div>
+
+    <div class="mb-3" *ngIf="!imgChanged">
+      <label class="form-label">Imagen Actual</label>
+      <div *ngIf="existingImage">
+        <img [src]="existingImage" alt="Imagen actual del producto" class="img-thumbnail" style="height: 200px;"/>
+      </div>
+    </div>
+
+    <div *ngIf="imagePreview" class="mb-3">
+      <label class="form-label">Vista Previa de la Nueva Imagen</label>
+      <div>
+        <img [src]="imagePreview" alt="Vista previa de la nueva imagen" class="img-thumbnail" style="height: 200px;"/>
+      </div>
+      <button type="button" class="btn btn-secondary mt-2" (click)="resetImage()">Cancelar Imagen Nueva</button>
+    </div>
+
+    <div class="mb-3">
+      <label for="productImage" class="form-label">Actualizar Imagen</label>
+      <input type="file" id="productImage" (change)="onFileSelected($event)" class="form-control"/>
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-3" [disabled]="validateForm.invalid" (click)="updateProduct()">
+      Guardar Cambios
+    </button>
+    <button type="button" class="btn btn-secondary mt-3" (click)="cancel()">Cancelar</button>
+  </form>
+</div>

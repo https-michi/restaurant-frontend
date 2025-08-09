@@ -1,0 +1,33 @@
+<h2>Lista de Categorías</h2>
+
+<form [formGroup]="validateForm" style="margin-top: 24px">
+  <div class="input-group mb-3">
+    <input type="text" placeholder="Ingresa una palabra clave para buscar" formControlName="title"
+           class="form-control" (keyup)="onSearch()">
+    <button type="button" class="btn btn-outline-secondary" (click)="clearSearch()">Limpiar</button>
+  </div>
+</form>
+
+
+<div *ngIf="categories.length === 0" class="alert alert-warning" role="alert">
+  No hay categorías disponibles.
+</div>
+
+<div class="row">
+  <div class="col-md-4" *ngFor="let category of categories">
+    <div class="card mb-4">
+      <img [src]="category.processedImg" class="card-img-top lazyload" alt="{{ category.name }}"
+           style="height: 200px; object-fit: cover;">
+
+      <div class="card-body">
+        <h5 class="card-title">{{ category.name }}</h5>
+        <p class="card-text">{{ category.description }}</p>
+      </div>
+      <div class="card-footer text-center">
+        <button routerLink="/customer/{{category.id}}/products" class="btn btn-primary me-2">Ver Productos</button>
+        <!--        <button routerLink="/admin/{{category.id}}/products" class="btn btn-primary me-2">Ver Productos</button>-->
+        <!--        <button routerLink="/admin/{{category.id}}/product" class="btn btn-success">Agregar Producto</button>-->
+      </div>
+    </div>
+  </div>
+</div>

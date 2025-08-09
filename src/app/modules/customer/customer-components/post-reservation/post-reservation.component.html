@@ -1,0 +1,38 @@
+<div class="container mt-5 d-flex justify-content-center">
+  <div class="card p-4 shadow" style="max-width: 500px; width: 100%;">
+    <h4 class="card-title text-center mb-4">Reservar Mesa</h4>
+
+    <div *ngIf="alertVisible" class="alert alert-{{ alertType }}" role="alert">
+      {{ alertMessage }}
+    </div>
+
+    <form [formGroup]="validateForm" (ngSubmit)="postReservation()">
+      <div class="mb-3">
+        <label for="tableType" class="form-label">Seleccione un tipo de mesa</label>
+        <select class="form-select" id="tableType" formControlName="tableType">
+          <option value="" disabled selected>Seleccione un tipo de mesa</option>
+          <option *ngFor="let table of TableType" [value]="table">{{ table }}</option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label for="reservationDate" class="form-label">Fecha y hora</label>
+        <input
+          type="datetime-local"
+          id="reservationDate"
+          class="form-control"
+          placeholder="Seleccione la fecha y hora"
+          required formControlName="dateTime">
+      </div>
+
+      <div class="mb-3">
+        <label for="description" class="form-label">Descripción</label>
+        <textarea id="description" class="form-control" placeholder="Descripción" rows="3"
+                  formControlName="description"></textarea>
+      </div>
+
+      <button type="submit" class="btn btn-primary w-100">Enviar</button>
+    </form>
+  </div>
+</div>
+
